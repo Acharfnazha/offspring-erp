@@ -18,7 +18,9 @@ export function FilterBar({ filters = [], placeholder = "Search…", exportEntit
   const pathname = usePathname();
   const sp = useSearchParams();
   const [q, setQ] = useState(sp.get("q") ?? "");
-  useEffect(() => setQ(sp.get("q") ?? ""), [sp]);
+  useEffect(() => {
+    setQ(sp.get("q") ?? "");
+  }, [sp]);
 
   const push = (patch: Record<string, string | null>) => {
     const p = new URLSearchParams(sp.toString());
