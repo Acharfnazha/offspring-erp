@@ -27,7 +27,7 @@ export function EntityForm({ schema, fields, defaultValues, action, submitLabel 
   schema: FormSchemaName;
   fields: FieldDef[];
   defaultValues: Record<string, unknown>;
-  action: (values: unknown) => Promise<ActionResult<{ id: string } | void>>;
+  action: (values: unknown) => Promise<ActionResult<unknown>>;
   submitLabel?: string;
   /** e.g. "/customers/:id" — ":id" is replaced with the created/updated id */
   redirectTo?: string;

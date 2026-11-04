@@ -22,7 +22,7 @@ export function DocumentForm({ schema, header, lineCols, defaultValues, newLine,
   lineCols: LineCol[];
   defaultValues: Record<string, unknown>;
   newLine: Record<string, unknown>;
-  action: (values: unknown) => Promise<ActionResult<{ id: string } | void>>;
+  action: (values: unknown) => Promise<ActionResult<unknown>>;
   redirectTo?: string;
   submitLabel?: string;
   qtyKey?: string;
