@@ -4,7 +4,7 @@ _Last updated: 2026-11-04 (end of build session)._
 
 ## Status summary
 
-The application builds (`next build`), type-checks under strict mode, and passes **45 unit + integration tests** against PostgreSQL. A Playwright end-to-end suite covers the success criteria; see "Verification" for the latest run. Every screen reads and writes persistent records. Every visible control calls a real server action or route.
+The application builds (`next build`), type-checks under strict mode, and passes **45 unit + integration tests** against PostgreSQL. A Playwright end-to-end suite (4/4 passing) covers the success criteria. Every screen reads and writes persistent records. Every visible control calls a real server action or route.
 
 ## Implemented modules
 
@@ -38,7 +38,8 @@ The application builds (`next build`), type-checks under strict mode, and passes
 - `npx tsc --noEmit`: passes.
 - `next build` (including ESLint): passes.
 - `npm test`: **45/45 passing** (28 unit, 17 integration on a real PostgreSQL test database).
-- Playwright e2e: see the latest result below.
+- Playwright e2e against the production build: **4/4 passing**. Covers login and route protection; the full order-to-cash flow (Dubai customer, 20,000 kg apples into a cold room, quotation and PDF, order, reservation, shipment, dispatch, invoice and PDF, partial payment, analytics, CSV/XLSX export); the storage-charge calculator; the offline assistant with permission enforcement.
+- Bugs found and fixed through these runs: zodResolver submitted transformed values, which the server then rejected; function props were passed from server to client components; an effect returned the Promise from `scrollIntoView()`, which React treated as a cleanup function (assistant crash).
 
 ## Partially implemented / known gaps
 
