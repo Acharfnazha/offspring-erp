@@ -4,7 +4,8 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { createSession } from "@/lib/auth/session";
 import { hashPassword, passwordSchema, verifyPassword } from "@/lib/auth/password";
-import { hashToken, newToken } from "@/lib/auth/tokens";
+import { hashToken } from "@/lib/auth/tokens";
+import { issueResetToken } from "@/lib/auth/reset";
 import { audit } from "@/lib/audit";
 
 const MAX_FAILED = 5;
@@ -52,12 +53,6 @@ export async function requestPasswordResetAction(_prev: { done?: boolean } | und
     console.info(`[password-reset] Reset link for ${email}: ${link}`);
   }
   return { done: true }; // never reveal whether the account exists
-}
-
-export async function issueResetToken(userId: string) {
-  const token = newToken();
-  await prisma.passwordResetToken.create({ data: { userId, tokenHash: hashToken(token), expiresAt: new Date(Date.now() + 60 * 60 * 1000) } });
-  return `${process.env.APP_URL ?? "http://localhost:3000"}/reset-password?token=${token}`;
 }
 
 export async function resetPasswordAction(_prev: { error?: string; done?: boolean } | undefined, formData: FormData): Promise<{ error?: string; done?: boolean }> {
