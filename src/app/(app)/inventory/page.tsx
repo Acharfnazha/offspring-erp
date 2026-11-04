@@ -7,7 +7,7 @@ import { DataTable, type Col } from "@/components/data/data-table";
 import { FilterBar } from "@/components/data/filter-bar";
 import { Button } from "@/components/ui/button";
 import { Kpi } from "@/components/data/kpi";
-import { listParams, orderBy, str, type SP } from "@/lib/list-params";
+import { listParams, orderBy, type SP } from "@/lib/list-params";
 import { D, formatKg, formatMoney } from "@/lib/money";
 import { GRADES, opts, label } from "@/lib/schemas";
 import { roomOptions, varietyOptions } from "@/lib/options";

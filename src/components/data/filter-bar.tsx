@@ -22,7 +22,10 @@ export function FilterBar({ filters = [], placeholder = "Search…", exportEntit
 
   const push = (patch: Record<string, string | null>) => {
     const p = new URLSearchParams(sp.toString());
-    for (const [k, v] of Object.entries(patch)) (v === null || v === "" ? p.delete(k) : p.set(k, v));
+    for (const [k, v] of Object.entries(patch)) {
+      if (v === null || v === "") p.delete(k);
+      else p.set(k, v);
+    }
     p.delete("page");
     router.push(`${pathname}?${p.toString()}`, { scroll: false });
   };

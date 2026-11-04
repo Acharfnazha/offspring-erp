@@ -49,7 +49,7 @@ export function EmployeeRowActions({ id, name, role, jobTitle, active, roles, se
         <DialogContent><DialogHeader><DialogTitle>Password reset link</DialogTitle></DialogHeader>{link && <LinkBox link={link} />}</DialogContent>
       </Dialog>
       <Button size="sm" variant="ghost" onClick={async () => { const r = await resetLinkAction(id); if (!r.ok) return toast.error(r.error); setLink((r.data as { link: string }).link); }}><KeyRound />Reset link</Button>
-      {!self && <ActionButton variant="ghost" destructive={active} action={setActiveAction.bind(null, id, !active)} confirmTitle={active ? `Deactivate ${name}?` : `Reactivate ${name}?`} confirmText={active ? "The user is signed out immediately and cannot log in. History is retained." : undefined} redirectTo={() => { router.refresh(); return undefined; }}>{active ? "Deactivate" : "Reactivate"}</ActionButton>}
+      {!self && <ActionButton variant="ghost" destructive={active} action={setActiveAction.bind(null, id, !active)} confirmTitle={active ? `Deactivate ${name}?` : `Reactivate ${name}?`} confirmText={active ? "The user is signed out immediately and cannot log in. History is retained." : undefined} >{active ? "Deactivate" : "Reactivate"}</ActionButton>}
     </div>
   );
 }

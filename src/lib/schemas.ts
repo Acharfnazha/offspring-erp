@@ -1,14 +1,14 @@
 import { z } from "zod";
 
 // Shared between client forms (React Hook Form) and server actions (authoritative validation).
-const optStr = (max = 500) => z.string().trim().max(max).optional().or(z.literal("")).transform((v) => (v ? v : null));
+const optStr = (max = 500) => z.string().trim().max(max).nullish().or(z.literal("")).transform((v) => (v ? v : null));
 const reqStr = (max = 200) => z.string().trim().min(1, "Required").max(max);
 const date = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Use YYYY-MM-DD");
 const optDate = z.union([date, z.literal(""), z.undefined(), z.null()]).transform((v) => (v ? v : null));
 const dec = (min = 0) => z.coerce.number({ invalid_type_error: "Enter a number" }).finite().min(min, `Must be ≥ ${min}`);
 const pos = z.coerce.number({ invalid_type_error: "Enter a number" }).finite().positive("Must be greater than 0");
 const currency = z.string().trim().toUpperCase().regex(/^[A-Z]{3}$/, "3-letter ISO code");
-const email = z.string().trim().email("Invalid email").max(200).optional().or(z.literal("")).transform((v) => (v ? v : null));
+const email = z.string().trim().email("Invalid email").max(200).nullish().or(z.literal("")).transform((v) => (v ? v : null));
 
 export const GRADES = ["EXTRA", "CLASS_I", "CLASS_II", "CUSTOM"] as const;
 export const INCOTERMS = ["EXW", "FCA", "FOB", "CFR", "CIF", "CPT", "CIP", "DAP", "DDP"] as const;

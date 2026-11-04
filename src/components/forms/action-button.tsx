@@ -15,14 +15,16 @@ export function ActionButton({ action, children, confirmTitle, confirmText, reas
   inputLabel?: string;
   inputType?: string;
   destructive?: boolean;
-  redirectTo?: string | ((data: unknown) => string | undefined);
+  /** Path to navigate to after success; ":id" is replaced with the returned record id. */
+  redirectTo?: string;
 } & Omit<ButtonProps, "action">) {
   const router = useRouter();
   const run = async (value?: string) => {
     const res = await action(value);
     if (!res.ok) { toast.error(res.error); return; }
     toast.success(res.message ?? "Done");
-    const to = typeof redirectTo === "function" ? redirectTo(res.data) : redirectTo;
+    const id = res.data && typeof res.data === "object" && "id" in res.data ? String((res.data as { id: unknown }).id) : "";
+    const to = redirectTo?.replace(":id", id);
     if (to) router.push(to);
     router.refresh();
   };

@@ -35,7 +35,7 @@ export function EntityForm({ schema, fields, defaultValues, action, submitLabel 
   cols?: 1 | 2 | 3;
 }) {
   const router = useRouter();
-  const form = useForm({ resolver: zodResolver(FORM_SCHEMAS[schema]), defaultValues });
+  const form = useForm({ resolver: zodResolver(FORM_SCHEMAS[schema], undefined, { raw: true }), defaultValues });
   const { register, handleSubmit, formState: { errors, isSubmitting }, setError } = form;
 
   const onSubmit = async (values: unknown) => {

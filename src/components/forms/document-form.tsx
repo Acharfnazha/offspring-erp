@@ -34,7 +34,7 @@ export function DocumentForm({ schema, header, lineCols, defaultValues, newLine,
   extraSubmit?: { label: string; flag: string };
 }) {
   const router = useRouter();
-  const form = useForm({ resolver: zodResolver(FORM_SCHEMAS[schema]), defaultValues });
+  const form = useForm({ resolver: zodResolver(FORM_SCHEMAS[schema], undefined, { raw: true }), defaultValues });
   const { register, control, handleSubmit, setValue, formState: { errors, isSubmitting } } = form;
   const { fields, append, remove } = useFieldArray({ control, name: "items" as never });
   const items = (useWatch({ control, name: "items" as never }) as unknown as Record<string, unknown>[]) ?? [];

@@ -30,7 +30,7 @@ export default async function QuotationPage({ params }: { params: Promise<{ id: 
           {write && ["SENT", "DRAFT"].includes(q.status) && <ActionButton action={setQuotationStatusAction.bind(null, q.id, "ACCEPTED")} confirmTitle="Mark as accepted by customer?"><Check />Accepted</ActionButton>}
           {write && ["SENT", "DRAFT"].includes(q.status) && <ActionButton action={setQuotationStatusAction.bind(null, q.id, "REJECTED")} confirmTitle="Mark as rejected?"><X />Rejected</ActionButton>}
           {can(user, "sales:write") && !q.salesOrder && ["SENT", "ACCEPTED", "DRAFT"].includes(q.status) && (
-            <ActionButton variant="default" action={convertQuotationAction.bind(null, q.id)} confirmTitle="Convert to sales order?" confirmText="A draft sales order is created with the quoted lines. Confirm it from the order page to reserve inventory." redirectTo={(d) => `/orders/${(d as { id: string }).id}`}><ShoppingCart />Convert to order</ActionButton>
+            <ActionButton variant="default" action={convertQuotationAction.bind(null, q.id)} confirmTitle="Convert to sales order?" confirmText="A draft sales order is created with the quoted lines. Confirm it from the order page to reserve inventory." redirectTo="/orders/:id"><ShoppingCart />Convert to order</ActionButton>
           )}
           {q.salesOrder && <Button asChild><Link href={`/orders/${q.salesOrder.id}`}>Order {q.salesOrder.orderNo}</Link></Button>}
         </>} />
