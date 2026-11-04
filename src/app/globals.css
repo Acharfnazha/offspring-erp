@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 140 20% 98%;
+    --foreground: 160 30% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 160 30% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 160 30% 8%;
+    --primary: 158 64% 24%;
+    --primary-foreground: 150 40% 98%;
+    --secondary: 150 14% 94%;
+    --secondary-foreground: 160 30% 12%;
+    --muted: 150 12% 95%;
+    --muted-foreground: 160 8% 42%;
+    --accent: 152 45% 93%;
+    --accent-foreground: 158 64% 20%;
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 150 12% 89%;
+    --input: 150 12% 86%;
+    --ring: 158 64% 32%;
+    --radius: 0.7rem;
+    --emerald: 152 69% 41%;
+    --sidebar: 160 45% 11%;
+    --sidebar-foreground: 150 20% 92%;
+    --sidebar-muted: 155 15% 62%;
+    --sidebar-accent: 158 40% 18%;
+    --chart-1: 152 69% 36%;
+    --chart-2: 199 80% 45%;
+    --chart-3: 38 92% 50%;
+    --chart-4: 340 70% 55%;
+    --chart-5: 262 60% 58%;
+    --chart-6: 172 66% 40%;
+  }
+  .dark {
+    --background: 165 25% 6%;
+    --foreground: 150 15% 94%;
+    --card: 165 22% 9%;
+    --card-foreground: 150 15% 94%;
+    --popover: 165 22% 9%;
+    --popover-foreground: 150 15% 94%;
+    --primary: 152 60% 45%;
+    --primary-foreground: 165 40% 6%;
+    --secondary: 165 15% 15%;
+    --secondary-foreground: 150 15% 94%;
+    --muted: 165 15% 13%;
+    --muted-foreground: 155 8% 62%;
+    --accent: 160 30% 16%;
+    --accent-foreground: 150 40% 90%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 165 14% 17%;
+    --input: 165 14% 20%;
+    --ring: 152 60% 45%;
+    --emerald: 152 60% 50%;
+    --sidebar: 165 28% 7%;
+    --sidebar-foreground: 150 15% 90%;
+    --sidebar-muted: 155 10% 55%;
+    --sidebar-accent: 160 25% 13%;
+    --chart-1: 152 60% 50%;
+    --chart-2: 199 80% 60%;
+    --chart-3: 38 92% 60%;
+    --chart-4: 340 75% 65%;
+    --chart-5: 262 70% 70%;
+    --chart-6: 172 60% 50%;
+  }
+  * { @apply border-border; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { @apply bg-background text-foreground antialiased; font-feature-settings: "cv11", "ss01"; }
+  .tabular { font-variant-numeric: tabular-nums; }
+}
+
+@layer utilities {
+  .scrollbar-thin { scrollbar-width: thin; }
+}
+
+@media print {
+  .no-print { display: none !important; }
+}
