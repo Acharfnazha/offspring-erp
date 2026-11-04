@@ -292,6 +292,17 @@ async function main() {
     }
   }
 
+  // Historical import: align ledger timestamps with the business dates of the sample documents.
+  await prisma.$executeRawUnsafe(`ALTER TABLE "InventoryMovement" DISABLE TRIGGER inventory_movement_immutable`);
+  await prisma.$executeRawUnsafe(`ALTER TABLE "AuditLog" DISABLE TRIGGER audit_log_immutable`);
+  await prisma.$executeRawUnsafe(`UPDATE "InventoryMovement" m SET "createdAt" = (o."expectedShipmentDate" + interval '9 hours') FROM "SalesOrder" o WHERE m.reference = o."orderNo" AND m.type IN ('DISPATCH','RESERVE','RELEASE') AND o."expectedShipmentDate" IS NOT NULL`);
+  await prisma.$executeRawUnsafe(`UPDATE "InventoryMovement" m SET "createdAt" = (b."arrivalDate" + interval '8 hours') FROM "InventoryBatch" b WHERE m."batchId" = b.id AND m.type = 'RECEIPT'`);
+  await prisma.$executeRawUnsafe(`UPDATE "InventoryMovement" m SET "createdAt" = LEAST(m."createdAt", (o."orderDate" + interval '10 hours')) FROM "SalesOrder" o WHERE m.reference = o."orderNo" AND m.type = 'RESERVE'`);
+  await prisma.$executeRawUnsafe(`ALTER TABLE "InventoryMovement" ENABLE TRIGGER inventory_movement_immutable`);
+  await prisma.$executeRawUnsafe(`ALTER TABLE "AuditLog" ENABLE TRIGGER audit_log_immutable`);
+  await prisma.$executeRawUnsafe(`UPDATE "SalesOrder" SET "confirmedAt" = "orderDate" + interval '10 hours' WHERE "confirmedAt" IS NOT NULL`);
+  await prisma.$executeRawUnsafe(`UPDATE "Payment" SET "createdAt" = "paidAt" + interval '12 hours'`);
+
   await refreshOverdue(prisma);
   console.log(`Seed complete (${isoDate(today)}). Sign in with admin@offspring.example / Offspring!2026`);
 }

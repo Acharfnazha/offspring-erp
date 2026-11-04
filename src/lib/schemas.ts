@@ -239,8 +239,12 @@ export const purchaseOrderSchema = z.object({
   items: z.array(z.object({ varietyId: reqStr(), grade: z.enum(GRADES), quantityKg: pos, unitCostKg: dec(0) })).min(1),
 });
 
-export type FormSchemaName = "customer" | "supplier" | "batch" | "batchEdit" | "coldRoom" | "reading" | "storageContract" | "shipment" | "expense" | "user";
+export type FormSchemaName = "quotation" | "order" | "invoice" | "purchaseOrder" | "customer" | "supplier" | "batch" | "batchEdit" | "coldRoom" | "reading" | "storageContract" | "shipment" | "expense" | "user";
 export const FORM_SCHEMAS: Record<FormSchemaName, z.ZodTypeAny> = {
+  quotation: quotationSchema,
+  order: orderSchema,
+  invoice: invoiceSchema,
+  purchaseOrder: purchaseOrderSchema,
   customer: customerSchema,
   supplier: supplierSchema,
   batch: batchSchema,
